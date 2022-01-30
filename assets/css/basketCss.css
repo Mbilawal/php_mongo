@@ -1,0 +1,53 @@
+.custom{
+    display:block;
+    color:white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+li a:hover{
+    background-color: rgba(31, 41, 39, 0.719);
+}
+ul {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background-color: #333;
+
+}
+li{
+    float:left;
+    width: 20%;
+}
+h1{
+    text-align: center;
+}
+.orders{
+    padding: 5px 20px 15px 20px;
+    border:2px solid white;
+    border-radius: 1px;
+}
+span.price{
+    float: right;
+    color: white;
+}
+.btn{
+    padding: 24px 80px;
+    position: absolute;
+    bottom :15%;
+    right:42%;
+}
+body{
+    background-image: url('../img/bg5.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;  
+}
+p,h1{
+    color: white;
+}
+button{
+    background-color: rgb(87, 87, 87);
+    color: white;
+}

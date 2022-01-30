@@ -1,0 +1,68 @@
+.col{
+    float: left;
+    width: 20%;
+    padding: 5px;
+}
+.row::after{
+    content: "";
+    clear:both;
+    display: table;
+}
+*{
+    box-sizing: border-box;
+}
+
+.custom{
+    display:block;
+    color:white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: rgba(31, 41, 39, 0.719);
+}
+ul {
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background-color: #333;
+
+}
+li{
+    float:left;
+    width: 20%;
+}
+h1{
+    text-align: center;
+
+}
+.search{
+   position: absolute;
+   right: 70%;
+}
+.products{
+    text-align: center;
+    font-size: 30px;
+}
+.search{
+    position: absolute;
+    top:15%;
+    right:10%;
+}
+.process{
+    position: absolute;
+    top: 20%;
+    right:10%;
+}
+body{
+    background-image: url('../img/bg5.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+h1,p{
+    color:white;
+}
