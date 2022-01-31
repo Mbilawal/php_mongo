@@ -14,11 +14,7 @@ $collection = $db->order;
 if($_POST['type'] == 'detail'){
 
     //Find One Query 
-    $order_arr = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($_POST['id'])]);
-
-    echo "<pre>";
-    print_r($order_arr);
-    exit;
+    $order_arr = (array) $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($_POST['id'])]);
 
     $response = '<div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -46,19 +42,19 @@ if($_POST['type'] == 'detail'){
                                         $response.='<option value="0" '.$slec.'>Cart</option>';
 
                                         $slec2 = '';
-                                        if($order_arr['status'] == 0){
+                                        if($order_arr['status'] == 1){
                                             $slec2 = 'selected';
                                         }
                                         $response.='<option value="1" '.$slec2.'>In-Progress</option>';
 
                                         $slec3 = '';
-                                        if($order_arr['status'] == 0){
+                                        if($order_arr['status'] == 2){
                                             $slec3 = 'selected';
                                         }
                                         $response.='<option value="2" '.$slec3.'>Completed</option>';
 
                                         $slec4 = '';
-                                        if($order_arr['status'] == 0){
+                                        if($order_arr['status'] == 3){
                                             $slec4 = 'selected';
                                         }
                                         $response.='<option value="3" '.$slec4.'>Rejected</option>';
