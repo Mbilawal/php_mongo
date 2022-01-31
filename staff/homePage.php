@@ -51,12 +51,6 @@ outputNavBar("Login");
             <p><?php echo $order_arr; ?></p>
         </div>
     </div>
-    <div class="col">
-        <div class="custom_block">
-            <h2>TOTAL ORDERS</h2>
-            <p><?php echo $order_arr; ?></p>
-        </div>
-    </div>
 </div>
 
 

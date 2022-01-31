@@ -72,7 +72,7 @@ if($_POST['type'] == 'detail'){
                 </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" data_id="'.$_POST['id'].'" class="btn btn-primary save_product">Save changes</button>
+                    <button type="button" data_id="'.$_POST['id'].'" class="btn btn-primary save_order">Save changes</button>
                   </div>
                 </div>
               </div>';
