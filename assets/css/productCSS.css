@@ -44,3 +44,9 @@ body{
     background-attachment: fixed;
     background-size: cover;
 }
+table.table {
+    background: #fff;
+}
+.container h1{
+    color: #fff;
+}

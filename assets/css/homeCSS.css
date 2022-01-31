@@ -11,7 +11,19 @@
 *{
     box-sizing: border-box;
 }
+.custom_block h2{
+    color: #fff;
+    text-align: center;
+}
+.custom_block p{
+    text-align: center;
+}
 
+.custom_block {
+    padding: 2px;
+    background: tomato;
+    border-radius: 12px;
+}
 .custom{
     display:block;
     color:white;

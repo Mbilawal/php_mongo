@@ -1,39 +1,44 @@
 <?php
-/*include("vendor/autoload.php");
+include("vendor/autoload.php");
 
 $client = new MongoDB\Client(
     'mongodb://localhost:27017/test?retryWrites=true&w=majority'
 );
 
-$db = $client->test;
+$db = $client->local;
 
-$collection = $db->users;
+$collection = $db->product;
+
+$orig_date = new DateTime(date('Y-m-d G:i:s'));
+$orig_date=$orig_date->getTimestamp(); 
+$utcdatetime = new MongoDB\BSON\UTCDateTime($orig_date*1000);
 
 $insertOneResult = $collection->insertOne([
-   'username'   => 'admin',
-   'email'      => 'admin@gmail.com',
-   'name'       => 'Admin User',
-   'role'       => 1,
-   'password'   => md5('12345')
+   'product_name'   => 'Spider Man Movie',
+   'price'          => 24.0,
+   'year'           => 2022,
+   'stocks'         => 5,
+   'image'          => 'product2.jpg',
+   'created_date'   => $utcdatetime
 ]);
 // printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
 // var_dump($insertOneResult->getInsertedId());
 
 if($insertOneResult->getInsertedCount()){
   
-    $collection->updateOne(array('_id' => $insertOneResult->getInsertedId()), [
-       'id'   => (string) $insertOneResult->getInsertedId()
-    ]);
-}*/
+    // $collection->updateOne(array('_id' => $insertOneResult->getInsertedId()), [
+    //    'id'   => (string) $insertOneResult->getInsertedId()
+    // ]);
+}
 
 // echo "<pre>";
 // print_r($db->showcollection());
-// exit;
+exit;
 ?>
 
 <?php
 session_start();
-if(!isset($_SESSION['user'])){
+if(!isset($_SESSION['logged_in'])){
     header('location:login.php');
 }?>
 <!DOCTYPE html>

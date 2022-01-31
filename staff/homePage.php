@@ -1,49 +1,61 @@
 <?php
-// session_start();
-// if(!isset($_SESSION['user'])){
-//     header('location:login.php');
-// }
-?>
+session_start();
+
+if(!isset($_SESSION['staff'])){
+    header('location:login.php');
+}
+
+include("db/Db.php");
+
+//Product Count
+$product_count = $db->product->count();
+
+//User Count
+$customer_arr = $db->customer->count(['role' => 0]);
+
+//Order Count
+$order_arr = $db->order->count(); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="../assets/css/homeCSS.css">
 </head>
 <?php
-include("../navbarPHP.php");
+include("navbarPHP.php");
 outputNavBar("Login");
 ?>
 <!--Displaying the navigation bar-->
 
-<h1> Home page </h1>
+<!-- <h1> Home page </h1> -->
 
-<input class="search"  type="text" name="search" class="searching" id="search">
-<button class=" process">Search</button>
 
 <body>
-
-
-<p class="products">Popular products:</label>
+<p class="products">DASHBOARD:</label>
 <div class="row">
     <div class="col">
-        <img src="product6.jpg" class ="one"> <p>10.35£</p>
-        <button>Put in basket</button>
+        <div class="custom_block">
+            <h2>TOTAL PRODUCTS</h2>
+            <p><?php echo $product_count; ?></p>
+        </div>
     </div>
     <div class="col">
-        <img src="product7.jpg" class ="one"><p>20.00£</p>
-        <button>Put in basket</button>
+        <div class="custom_block">
+            <h2>TOTAL CUSTOMER</h2>
+            <p><?php echo $customer_arr; ?></p>
+        </div>
     </div>
     <div class="col">
-        <img src="product8.jpg" class ="one"><p>23.99£</p>
-        <button>Put in basket</button>
+        <div class="custom_block">
+            <h2>TOTAL ORDERS</h2>
+            <p><?php echo $order_arr; ?></p>
+        </div>
     </div>
     <div class="col">
-        <img src="product9.jpg" class ="one"> <p>10.99£</p>
-        <button>Put in basket</button>
-    </div>
-    <div class="col">
-        <img src="produvt10.jpg" class ="one"> <p>21.99£</p>
-        <button>Put in basket</button>
+        <div class="custom_block">
+            <h2>TOTAL ORDERS</h2>
+            <p><?php echo $order_arr; ?></p>
+        </div>
     </div>
 </div>
 

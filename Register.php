@@ -47,14 +47,14 @@ outputNavBar("Register");
             
             $("body").on("click",".reg_btn",function(){
                 
-                var userMail = $("#userMail").val();
-                var userPass = $("#userPass").val();
-                var userName = $("#userName").val();
+                var userMail    = $("#userMail").val();
+                var userPass    = $("#userPass").val();
+                var userName    = $("#userName").val();
                 var userAddress = $("#userAddress").val();
 
                 if(userMail != "" && userPass != "" && userAddress != "" && userName != ""){
                     $.ajax({
-                        url : "http://localhost/frontend/registeruser.php",
+                        url : "registeruser.php",
                         type: "POST",
                         data : {userPass:userPass, userMail:userMail,userAddress:userAddress,userName:userName},
                         success:function(response_data) 
