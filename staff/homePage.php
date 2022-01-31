@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['staff'])){
-    header('location:login.php');
+    header('location:../login.php');
 }
 
 include("db/Db.php");

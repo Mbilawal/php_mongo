@@ -59,7 +59,13 @@ outputNavBar("Register");
                         data : {userPass:userPass, userMail:userMail,userAddress:userAddress,userName:userName},
                         success:function(response_data) 
                         {
-                            $("#response").html(response_data)
+                            $("#response").html(response_data);
+                            
+                            //Empty Field After Submit
+                            $("#userMail").val('');
+                            $("#userPass").val('');
+                            $("#userName").val('');
+                            $("#userAddress").val('');
                         }
                     });
                 }else{

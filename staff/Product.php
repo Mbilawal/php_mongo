@@ -2,19 +2,15 @@
 session_start();
 
 if(!isset($_SESSION['staff'])){
-    header('location:login.php');
+    header('location:../login.php');
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="../assets/css/productCSS.css">
     <!-- <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css"> -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-   
-
     <style type="text/css">
         input#search {
             height: 30px;
@@ -80,23 +76,26 @@ outputNavBar("Login");
             var keyword = $("#search").val();
 
             if(keyword != ''){
-
+                //Fetch All Product
                 $.ajax({
                     url : "fetch_product.php",
                     type: "POST",
                     data : {keyword:keyword},
                     success:function(response) 
                     {
+                        //APPend to table
                         $('.table').html(response);
                     }
                 });
             }else{
+                //Fetch All Product
                 $.ajax({
                     url : "fetch_product.php",
                     type: "POST",
                     data : "",
                     success:function(response) 
                     {
+                        //APPend to table
                         $('.table').html(response);
                     }
                 });
@@ -115,6 +114,7 @@ outputNavBar("Login");
                 data : {id:id,type:'detail'},
                 success:function(response) 
                 {
+                    //Model Show
                     $('#editproduct_model').html(response);
                     $('#editproduct_model').modal('show');
                 }
@@ -127,10 +127,17 @@ outputNavBar("Login");
         $("body").on("click",".save_product",function(e){
 
             var id = $(this).attr('data_id');
-            // var postData = $('#product_edit_form').serializeArray();
             var formdata = new FormData();
             
             var attachment = document.getElementById('edit_attachment').files[0];
+            
+            var file_list = document.getElementById('edit_attachment').files.length;    
+            if(file_list > 0){
+                formdata.append( 'file', attachment);
+                formdata.append( 'file_lenght', file_list);
+            }else{
+                formdata.append( 'file_lenght', file_list);
+            }
             var e_name = $('#e_name').val();
             var e_consoletype = $('#e_consoletype').val();
             var e_yeat = $('#e_yeat').val();
@@ -142,7 +149,6 @@ outputNavBar("Login");
             formdata.append( 'product_name', e_name);
             formdata.append( 'stocks', e_stock);
             formdata.append( 'year', e_yeat);
-            formdata.append( 'file', attachment);
             formdata.append( 'type', 'save');
             formdata.append( 'id', id);
 
@@ -222,8 +228,15 @@ outputNavBar("Login");
                 formdata.append( 'product_name', a_name);
                 formdata.append( 'stocks', a_stock);
                 formdata.append( 'year', a_yeat);
-                formdata.append( 'file', attachment);
                 formdata.append( 'type', 'add_product');
+                
+                var file_list = document.getElementById('edit_attachment').files.length;    
+                if(file_list > 0){
+                    formdata.append( 'file', attachment);
+                    formdata.append( 'file_lenght', file_list);
+                }else{
+                    formdata.append( 'file_lenght', file_list);
+                }
 
                 $.ajax({
                     url : "fetch_product_detail.php",

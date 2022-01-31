@@ -14,10 +14,11 @@ $orig_date=$orig_date->getTimestamp();
 $utcdatetime = new MongoDB\BSON\UTCDateTime($orig_date*1000);
 
 $insertOneResult = $collection->insertOne([
-   'productid'      => new MongoDB\BSON\ObjectID('61f79981ef10000064002bdd'),
-   'customerid'     => new MongoDB\BSON\ObjectID('61f78171ef10000064002bd8'),
+   'productid'      => new MongoDB\BSON\ObjectID('61f7e318840f000023005174'),
+   'customerid'     => new MongoDB\BSON\ObjectID('61f7e2cc840f000023005173'),
    'price'          => 2022,
-   'created_date'   => $utcdatetime
+   'created_date'   => $utcdatetime,
+   'status'         => 1
 ]);
 // printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
 // var_dump($insertOneResult->getInsertedId());
@@ -36,7 +37,7 @@ exit;*/
 
 <?php
 session_start();
-if(!isset($_SESSION['logged_in'])){
+if(!isset($_SESSION['user'])){
     header('location:login.php');
 }?>
 <!DOCTYPE html>

@@ -1,9 +1,8 @@
 <?php
-
 session_start();
 
 if(!isset($_SESSION['staff'])){
-    header('location:login.php');
+    header('location:../login.php');
 }
 
 include("db/Db.php");
@@ -11,13 +10,12 @@ $where_arr = [];
 
 if(isset($_POST['keyword'])){
 
-
     $keyword = $_POST['keyword'];
     $search_name = new MongoDB\BSON\Regex( ".*{$keyword}.*", 'i' );
 
     $where_arr['$or'][] = array('productid'  => $search_name);
-    $where_arr['$or'][] = array('customerid'         => $search_name);
-    $where_arr['$or'][] = array('price'   => $search_name);
+    $where_arr['$or'][] = array('customerid' => $search_name);
+    $where_arr['$or'][] = array('price'      => $search_name);
 
 }
 

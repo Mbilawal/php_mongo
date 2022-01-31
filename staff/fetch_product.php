@@ -3,7 +3,7 @@
 session_start();
 
 if(!isset($_SESSION['staff'])){
-    header('location:login.php');
+    header('location:../login.php');
 }
 
 include("db/Db.php");
@@ -11,8 +11,6 @@ include("db/Db.php");
 $where_arr = [];
 
 if(isset($_POST['keyword'])){
-
-
     $keyword = $_POST['keyword'];
     $search_name = new MongoDB\BSON\Regex( ".*{$keyword}.*", 'i' );
 
@@ -38,11 +36,13 @@ $response = '<tr>
               </tr>';
 
 if(!empty($product_arr)){
-    
+
     foreach($product_arr as $data){
 
-        if($data['image']!=""){
+        if(isset($data['image'])){
             $data['image'] = '<img src="../assets/img/'.$data['image'].'" width="50px" height="50px" />';
+        }else{
+            $data['image'] = '<img src="../assets/img/empty_user.png" width="50px" height="50px" />';
         }
 
         $response.='<tr>

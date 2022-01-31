@@ -3,7 +3,7 @@
 session_start();
 
 if(!isset($_SESSION['staff'])){
-    header('location:login.php');
+    header('location:../login.php');
 }
 
 include("db/Db.php");
@@ -35,7 +35,7 @@ if($_POST['type'] == 'detail'){
                                     <br> Year <br><input type="number" value="'.$product_arr['year'].'" id="e_yeat" >   <br><br>
                                     <br> Stocks <br><input type="number" value="'.$product_arr['stocks'].'" id="e_stock" >   <br><br>
                                     <br> Price <br><input type="number" value="'.$product_arr['price'].'" id="e_price" >   <br><br>
-                                    <br> Pic <br><input type="file" id="edit_attachment" >   <br><br>';
+                                    <br> Pic <br><input type="file" value="" id="edit_attachment" >   <br><br>';
 
                                 }else{
                                     $response.='<p>No Record Found</p>';
@@ -67,15 +67,18 @@ if($_POST['type'] == 'save'){
        'stocks'         => $_POST['stocks'],
     ];
 
-    if($_FILES['file']['name']!=""){
-        $target_dir = "../assets/img/";
-        $ext                        =   pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION); 
-        $file_name                  =   'attachment-'.date('YmdGis').'.'.$ext;
+    if($_POST['file_lenght']){
 
-        if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir . $file_name)) {
-            $upd_arr['image'] = $file_name;
-        } else {
-            echo "Sorry, there was an error uploading your file.";
+        if($_FILES['file']['name']!=""){
+            $target_dir = "../assets/img/";
+            $ext                        =   pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION); 
+            $file_name                  =   'attachment-'.date('YmdGis').'.'.$ext;
+
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir . $file_name)) {
+                $upd_arr['image'] = $file_name;
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
         }
     }
 
@@ -90,6 +93,13 @@ if($_POST['type'] == 'save'){
 }
 
 if($_POST['type'] == 'remove'){
+
+    //Find One Query First to see the Image if Any on Product 
+    $product_arr = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($_POST['id'])]);
+
+    if($product_arr['image']){
+        unlink('../assets/img/'.$product_arr['image']);
+    }
 
     //Remove Record for Product
     $collection->deleteOne(['_id' => new MongoDB\BSON\ObjectID($_POST['id'])]);
@@ -113,16 +123,18 @@ if($_POST['type'] == 'add_product'){
        'created_date'   => $utcdatetime
     ];
 
-    if($_FILES['file']['name'] != ""){
+    if($_POST['file_lenght']){
+        if($_FILES['file']['name'] != ""){
 
-        $target_dir = "../assets/img/";
-        $ext                        =   pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION); 
-        $file_name                  =   'attachment-'.date('YmdGis').'.'.$ext;
+            $target_dir = "../assets/img/";
+            $ext                        =   pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION); 
+            $file_name                  =   'attachment-'.date('YmdGis').'.'.$ext;
 
-        if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir . $file_name)) {
-            $ins_arr['image'] = $file_name;
-        } else {
-            echo "Sorry, there was an error uploading your file.";
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_dir . $file_name)) {
+                $ins_arr['image'] = $file_name;
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
         }
     }
 
@@ -136,11 +148,9 @@ if($_POST['type'] == 'add_product'){
         exit;
     }
 
-
 }
 
 if($_POST['type'] == 'add'){
-
 
     $response = '<div class="modal-dialog" role="document">
                     <div class="modal-content">
