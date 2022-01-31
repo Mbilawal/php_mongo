@@ -1,5 +1,5 @@
 <?php
-include("vendor/autoload.php");
+/*include("vendor/autoload.php");
 
 $client = new MongoDB\Client(
     'mongodb://localhost:27017/test?retryWrites=true&w=majority'
@@ -7,18 +7,16 @@ $client = new MongoDB\Client(
 
 $db = $client->local;
 
-$collection = $db->product;
+$collection = $db->order;
 
 $orig_date = new DateTime(date('Y-m-d G:i:s'));
 $orig_date=$orig_date->getTimestamp(); 
 $utcdatetime = new MongoDB\BSON\UTCDateTime($orig_date*1000);
 
 $insertOneResult = $collection->insertOne([
-   'product_name'   => 'Spider Man Movie',
-   'price'          => 24.0,
-   'year'           => 2022,
-   'stocks'         => 5,
-   'image'          => 'product2.jpg',
+   'productid'      => new MongoDB\BSON\ObjectID('61f79981ef10000064002bdd'),
+   'customerid'     => new MongoDB\BSON\ObjectID('61f78171ef10000064002bd8'),
+   'price'          => 2022,
    'created_date'   => $utcdatetime
 ]);
 // printf("Inserted %d document(s)\n", $insertOneResult->getInsertedCount());
@@ -33,7 +31,7 @@ if($insertOneResult->getInsertedCount()){
 
 // echo "<pre>";
 // print_r($db->showcollection());
-exit;
+exit;*/
 ?>
 
 <?php

@@ -16,10 +16,15 @@ if(isset($_POST['keyword'])){
     $keyword = $_POST['keyword'];
     $search_name = new MongoDB\BSON\Regex( ".*{$keyword}.*", 'i' );
 
-    $where_arr['$or'][] = array('name' => $search_name);
-    $where_arr['$or'][] = array('email' => $search_name);
-    $where_arr['$or'][] = array('address' => $search_name);
+    $or_arr = [];
+    $or_arr['$or'][] = array('name' => $search_name);
+    $or_arr['$or'][] = array('email' => $search_name);
+    $or_arr['$or'][] = array('address' => $search_name);
+
+    $where_arr['$and'][] = $or_arr;
 }
+
+$where_arr['$and'][] = ['role' => 0];
 
 $collection = $db->customer;
 $get_product = $collection->find($where_arr);
@@ -30,7 +35,6 @@ $response = '<tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Address</th>
-                <th>Action</th>
               </tr>';
 
 if(!empty($product_arr)){
@@ -42,9 +46,7 @@ if(!empty($product_arr)){
                     <td>'.$data['name'].'</td>
                     <td>'.$data['email'].'</td>
                     <td>'.$data['address'].'</td>
-                    <td>
-                        <button type="button" data_id="'.$data['_id'].'" class="btn btn-danger remove_product">Remove</button>
-                    </td>
+                    
                   </tr>';
     }
 

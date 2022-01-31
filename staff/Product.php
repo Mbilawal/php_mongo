@@ -32,27 +32,18 @@ outputNavBar("Login");
 <body>
     <div class="container">
         <h1> Product Listing </h1>
-        <input class="search"  type="text" name="search" placeholder="Search Product" class="searching" id="search">
-        <button class="process search_keyword">Search</button>
-
+        <br>
+        <br>
+        <span class="left">
+            <input class="search"  type="text" name="search" placeholder="Search Product" class="searching" id="search">
+            <button class="process search_keyword">Search</button>
+        </span>
+        <span class="right">
+            <button class="process add_product">Add Product</button>
+        </span>
+        <br>
         <table  class="table">
-          <tr>
-            <th>Product ID</th>
-            <th>Image</th>
-            <th>Product Name</th>
-            <th>Product Price</th>
-            <th>Product Created Date</th>
-            <th>Action</th>
-          </tr>
           
-          <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Alfreds Futterkiste</td>
-            <td>Alfreds Futterkiste</td>
-            <td>Alfreds Futterkiste</td>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-          </tr>
         </table>
     </div>
 
@@ -136,7 +127,8 @@ outputNavBar("Login");
         $("body").on("click",".save_product",function(e){
 
             var id = $(this).attr('data_id');
-            var postData = $('#product_edit_form').serializeArray();
+            // var postData = $('#product_edit_form').serializeArray();
+            var formdata = new FormData();
             
             var attachment = document.getElementById('edit_attachment').files[0];
             var e_name = $('#e_name').val();
@@ -145,23 +137,32 @@ outputNavBar("Login");
             var e_stock = $('#e_stock').val();
             var e_price = $('#e_price').val();
 
-            postData.push({name: 'console_type', value: e_consoletype});
-            postData.push({name: 'price', value: e_price});
-            postData.push({name: 'product_name', value: e_name});
-            postData.push({name: 'stocks', value: e_stock});
-            postData.push({name: 'year', value: e_yeat});
-            postData.push({name: 'file', value: attachment});
-            postData.push({name: 'type', value: 'save'});
-            postData.push({name: 'id', value: id});
+            formdata.append('console_type', e_consoletype);
+            formdata.append( 'price', e_price);
+            formdata.append( 'product_name', e_name);
+            formdata.append( 'stocks', e_stock);
+            formdata.append( 'year', e_yeat);
+            formdata.append( 'file', attachment);
+            formdata.append( 'type', 'save');
+            formdata.append( 'id', id);
 
             $.ajax({
                 url : "fetch_product_detail.php",
                 type: "POST",
-                data : postData,
+                data : formdata,
+                cache: false,
+                contentType: false,
+                processData: false,
+
                 success:function(response) 
                 {
-                    $('#editproduct_model').modal('hide');
-                    fetch_product();
+                    if(response == 1){
+                        $('#editproduct_model').modal('hide');
+                        fetch_product();
+                    }else{
+                        $('.modal_error').html(response);
+                        $('.modal_error').css('display','block');
+                    }
                 }
             });
 
@@ -182,6 +183,71 @@ outputNavBar("Login");
                     fetch_product();
                 }
             });
+
+        });
+
+        
+        //Click Event through Jquery AJAX
+        $("body").on("click",".add_product",function(e){
+            
+            $.ajax({
+                url : "fetch_product_detail.php",
+                type: "POST",
+                data : {type:'add'},
+                success:function(response) 
+                {
+                    $('#editproduct_model').html(response);
+                    $('#editproduct_model').modal('show');
+                }
+            });
+
+        });
+
+        //Click Event through Jquery AJAX
+        $("body").on("click",".save_add_product",function(e){
+
+            
+            var attachment = document.getElementById('edit_attachment').files[0];
+            var a_name = $('#a_name').val();
+            var a_consoletype = $('#a_consoletype').val();
+            var a_yeat = $('#a_yeat').val();
+            var a_stock = $('#a_stock').val();
+            var a_price = $('#a_price').val();
+
+            if(a_name!="" || a_consoletype != "" || a_yeat!=""){
+
+                var formdata = new FormData();
+                formdata.append('console_type', a_consoletype);
+                formdata.append( 'price', a_price);
+                formdata.append( 'product_name', a_name);
+                formdata.append( 'stocks', a_stock);
+                formdata.append( 'year', a_yeat);
+                formdata.append( 'file', attachment);
+                formdata.append( 'type', 'add_product');
+
+                $.ajax({
+                    url : "fetch_product_detail.php",
+                    type: "POST",
+                    data : formdata,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+
+                    success:function(response) 
+                    {
+                        if(response == 1){
+                            $('#editproduct_model').modal('hide');
+                            fetch_product();
+                        }else{
+                            $('.modal_error').html(response);
+                            $('.modal_error').css('display','block');
+                        }
+                    }
+                });
+            }else{
+                alert('Fill the Fields');
+            }
+
 
         });
 
