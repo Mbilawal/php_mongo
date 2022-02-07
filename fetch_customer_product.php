@@ -55,7 +55,7 @@ if(!empty($product_arr)){
                         '.$data['image'].' 
                         <p>'.$data['product_name'].'£</p>
                         <p>'.$data['price'].'£</p>
-                        <button class="add_product_cart" data_id="'.$data['_id'].'">Put in basket</button>
+                        <button class="add_product_cart" price="'.$data['price'].'" data_id="'.$data['_id'].'">Put in basket</button>
                     </div> <br><br>';
         
         // $zz = $cc % 4;

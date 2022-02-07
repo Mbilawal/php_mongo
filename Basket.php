@@ -1,39 +1,74 @@
 <?php
 session_start();
+
 if(!isset($_SESSION['user'])){
     header('location:login.php');
 }
 ?>
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="assets/css/basketCss.css">
-        
-    </head>
-    
-<body>
-    <?php
-    //including the php functions that we are going to use
-include("navbarPHP.php");
-outputNavBar("Basket");
+<head>
+    <link rel="stylesheet" type="text/css" href="assets/css/productCSS.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <style type="text/css">
+        input#search {
+            height: 30px;
+        }
+    </style>
+</head>
+<!--Displaying the navigation bar-->
+<?php
+include("navbarPHP.php");
+outputNavBar("Login");
 ?>
 <!--Displaying the navigation bar-->
 
-<h1>Basket</h1>
+<!--Displaying all the products for the users-->
+<body>
+    <div class="container">
+        <h1> Cart Order </h1>
+        <br>
+        <br>
+        <span class="left">
+        </span>
+        <br>
+        <table  class="table">
+          
+        </table>
+    </div>
 
-<div class="orders">
-    <!-- the picture and the product name will be displayed here-->
-<p><a>Game 1</a> <span class="price">$15<button>Remove from order</button></span></p>
-<p><a>Game 2</a> <span class="price">$5<button>Remove from order</button></span></p>
-<p><a>Game 3</a> <span class="price">$8<button>Remove from order</button></span></p>
-<p><a>Game 4</a> <span class="price">$2<button>Remove from order</button></span></p>
-<p><a>Game 5</a> <span class="price">$45<button>Remove from order</button></span></p>
-<p><a>Game 6</a> <span class="price">$25<button>Remove from order</button></span></p>
-<p><a>Game 7</a> <span class="price">$35<button>Remove from order</button></span></p>
-<p><a>Game 8</a> <span class="price">$22<button>Remove from order</button></span></p>
-</div>
-<button class="btn"> Pay now</button>
+    <div id="editorder_model" class="modal hide" tabindex="-1" role="dialog">
+      
+    </div>
 
+<script src="assets/js/jquery-1.11.1.min.js"> </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(e) {
+        
+        //Get Order Listing Through Ajax
+        function fetch_order() {
+            
+            $.ajax({
+                url : "fetch_customer_order.php",
+                type: "POST",
+                data : {type:'cart'},
+                success:function(response) 
+                {
+                    $('.table').html(response);
+                }
+            });
+        }
+
+        fetch_order();
+
+    });
+</script>
 </body>
 </html>

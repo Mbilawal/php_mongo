@@ -7,10 +7,17 @@ if(!isset($_SESSION['user'])){
 
 include("db/Db.php");
 
+//Where
+$where_arr = [];
+
+if(isset($_POST['type'])){
+    $where_arr['$and'][] = ['status' => 0];    
+}else{
+    $where_arr['$and'][] = ['status' => ['$ne' => 0]];
+}
 
 //Get Only Customer Order
-$where_arr = [];
-$where_arr = ['customerid' => new MongoDB\BSON\ObjectID($_SESSION['admin_id'])];
+$where_arr['$and'][] = ['customerid' => new MongoDB\BSON\ObjectID($_SESSION['admin_id'])];
 
 $collection = $db->order;
 $get_order = $collection->find($where_arr);

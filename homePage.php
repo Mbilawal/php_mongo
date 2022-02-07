@@ -102,6 +102,32 @@ outputNavBar("Login");
             }
         });
 
+        //Cart Order
+        $("body").on("click",".add_product_cart",function(){
+            
+            var product_id  = $(this).attr('data_id');
+            var price       = $(this).attr('price');
+
+            if(product_id != ''){
+                //Cart Product
+                $.ajax({
+                    url : "Get_cart_order.php",
+                    type: "POST",
+                    data : {price:price,product_id:product_id},
+                    success:function(response) 
+                    {
+                        if(response){
+                            alert('Product Added to Cart');
+                        }else{
+                            alert('Error Occur');
+                        }
+                    }
+                });
+            }else{
+                
+            }
+        });
+
     });
 </script>
 </body>
