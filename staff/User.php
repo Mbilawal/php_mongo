@@ -51,11 +51,11 @@ outputNavBar("Login");
           </tr>
         </table>
     </div>
-
+<!-- add js library -->
 <script src="../assets/js/jquery-1.11.1.min.js"> </script>
 <script type="text/javascript">
     $(document).ready(function(e) {
-        
+       //ajax request to show all the customers
         $.ajax({
             url : "fetch_customer.php",
             type: "POST",

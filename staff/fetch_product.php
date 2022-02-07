@@ -9,7 +9,7 @@ if(!isset($_SESSION['staff'])){
 include("db/Db.php");
 
 $where_arr = [];
-
+//checks for keywords in search bar
 if(isset($_POST['keyword'])){
     $keyword = $_POST['keyword'];
     $search_name = new MongoDB\BSON\Regex( ".*{$keyword}.*", 'i' );

@@ -5,7 +5,8 @@ $collection = $db->customer;
 
 if(isset($_POST['userPass']) && isset($_POST['userMail'])){
 
-    $where_arr = [];
+    //Where Clause to check mail email case should be case sensative regex expression
+    $where_arr = [];    
     $where_arr['$and'][] = array('email' => 
                                     array(
                                         '$regex'    => '^'.$_POST['userMail'].'$',
@@ -14,9 +15,9 @@ if(isset($_POST['userPass']) && isset($_POST['userMail'])){
                                 );
 
     $where_arr['$and'][] = ['password' => md5($_POST['userPass']) ];
-
+    
+    //Findone Mongo Query
     $user_arr = (array) $collection->findOne($where_arr);
-    // $user_arr = iterator_to_array($get_user);
     
     if(!empty($user_arr)){
 

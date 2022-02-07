@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+//checking if session is not set for staff then it goes into login page
 if(!isset($_SESSION['staff'])){
     header('location:../login.php');
 }
@@ -56,7 +56,7 @@ outputNavBar("Login");
     $(document).ready(function(e) {
         
         function fetch_product() {
-            
+            //ajax request to show all the products
             $.ajax({
                 url : "fetch_product.php",
                 type: "POST",

@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+//checking if session is not set for staff then it goes into login page
 if(!isset($_SESSION['staff'])){
     header('location:../login.php');
 }
